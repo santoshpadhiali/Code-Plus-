@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import { ENV } from "./env.js";
 
 export const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return;
+
   try {
     if (!ENV.DB_URL) {
       throw new Error("DB_URL is not defined in environment variables");
@@ -11,6 +13,6 @@ export const connectDB = async () => {
     console.log("✅ Connected to MongoDB:", conn.connection.host);
   } catch (error) {
     console.error("❌ Error connecting to MongoDB", error);
-    process.exit(1); // 0 means success, 1 means failure
+    throw error; // Let the middleware handle it
   }
 };

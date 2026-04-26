@@ -104,7 +104,7 @@ STREAM_API_SECRET=your_stream_api_secret
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 VITE_STREAM_API_KEY=your_stream_api_key
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=/api
 ```
 
 

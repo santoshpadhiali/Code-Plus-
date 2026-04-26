@@ -50,6 +50,16 @@ if (ENV.NODE_ENV === "production") {
 
 export default app;
 
+// Global middleware to ensure DB is connected (for serverless)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ message: "Database Connection Error" });
+  }
+});
+
 if (process.env.NODE_ENV !== "production") {
   const startServer = async () => {
     try {
@@ -63,10 +73,4 @@ if (process.env.NODE_ENV !== "production") {
   };
 
   startServer();
-} else {
-  // In production (Vercel), we still need to connect to DB
-  // But Vercel handles the listening.
-  // Note: For serverless functions, you often want to connect to DB inside the handler
-  // or at the top level with a check.
-  connectDB().catch((err) => console.error("DB Connection Error:", err));
 }
