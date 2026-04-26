@@ -11,7 +11,7 @@
   ],
   "functions": {
     "backend/src/server.js": {
-      "runtime": "@vercel/node@3"
+      "runtime": "@vercel/node"
     }
   }
 }
