@@ -10,6 +10,8 @@ npm install @clerk/react
 ## Project Overview
 **CodePulse** is a high-performance, real-time collaborative coding platform designed for technical interviews, peer-to-peer coding sessions, and competitive programming practice. It combines a state-of-the-art code editor with integrated video calling and live chat, providing a seamless environment for developers to solve problems together.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/import?s=https://github.com/santoshpadhiali/Code-Plus-)
+
 ## Key Features
 1. **Collaborative Code Editor**:
    - Integrated **Monaco Editor** (the same engine powering VS Code).
