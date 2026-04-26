@@ -14,17 +14,8 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "backend/src/server.js"
-    },
-    {
-      "source": "/health",
-      "destination": "backend/src/server.js"
-    },
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/api/:match*", "destination": "backend/src/server.js" },
+    { "source": "/health", "destination": "backend/src/server.js" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
