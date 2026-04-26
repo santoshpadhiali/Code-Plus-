@@ -48,13 +48,25 @@ if (ENV.NODE_ENV === "production") {
   });
 }
 
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(ENV.PORT, () => console.log("Server is running on port:", ENV.PORT));
-  } catch (error) {
-    console.error("💥 Error starting the server", error);
-  }
-};
+export default app;
 
-startServer();
+if (process.env.NODE_ENV !== "production") {
+  const startServer = async () => {
+    try {
+      await connectDB();
+      app.listen(ENV.PORT || 5000, () =>
+        console.log("Server is running on port:", ENV.PORT || 5000)
+      );
+    } catch (error) {
+      console.error("💥 Error starting the server", error);
+    }
+  };
+
+  startServer();
+} else {
+  // In production (Vercel), we still need to connect to DB
+  // But Vercel handles the listening.
+  // Note: For serverless functions, you often want to connect to DB inside the handler
+  // or at the top level with a check.
+  connectDB().catch((err) => console.error("DB Connection Error:", err));
+}
