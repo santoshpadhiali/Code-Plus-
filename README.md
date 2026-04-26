@@ -125,6 +125,16 @@ The backend uses a specialized `executeController` that:
 - **Initialization**: When a session starts, the backend creates a unique "Call ID" and initializes both a video call and a messaging channel.
 - **Synchronization**: As a user types, code changes are throttled and broadcasted via the chat channel as a custom `code-update` event. Other participants listen for this event to keep their editors in sync.
 
+## Deployment (Vercel)
+
+This project is configured for easy deployment on Vercel.
+
+### Steps to Deploy:
+1.  **Push to GitHub**: Ensure your latest changes are pushed to your repository.
+2.  **Import to Vercel**: Click the "Deploy with Vercel" button at the top of this README or manually import your repository in the Vercel dashboard.
+3.  **Environment Variables**: Add all the variables listed in the [Environment Variables Setup](#environment-variables-setup) section to your Vercel project settings.
+4.  **Framework Settings**: Vercel will automatically detect the settings based on the `vercel.json` provided in the root.
+
 ## Conclusion
 Talent IQ is a robust tool for modern development needs, bridging the gap between coding and communication. Its modular architecture and reliance on battle-tested technologies like GetStream and Clerk ensure scalability and security.
 
