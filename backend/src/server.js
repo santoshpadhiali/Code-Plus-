@@ -30,6 +30,16 @@ app.use(express.json());
 app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(clerkMiddleware()); // this adds auth field to request object: req.auth()
 
+// Global middleware to ensure DB is connected (for serverless)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).json({ message: "Database Connection Error" });
+  }
+});
+
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
@@ -50,21 +60,11 @@ if (ENV.NODE_ENV === "production") {
 
 export default app;
 
-// Global middleware to ensure DB is connected (for serverless)
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    next();
-  } catch (err) {
-    res.status(500).json({ message: "Database Connection Error" });
-  }
-});
-
 if (process.env.NODE_ENV !== "production") {
   const startServer = async () => {
     try {
       await connectDB();
-      app.listen(ENV.PORT || 5000, () =>
+      app.listen(ENV.PORT || 5000, "0.0.0.0", () =>
         console.log("Server is running on port:", ENV.PORT || 5000)
       );
     } catch (error) {
